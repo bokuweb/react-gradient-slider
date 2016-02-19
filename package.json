@@ -68,5 +68,8 @@
   },
   "files": [
     "lib"
-  ]
+  ],
+  "dependencies": {
+    "react-inline-css": "^2.1.0"
+  }
 }

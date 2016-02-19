@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import HelloWorld from '../../src';
+import Slider from '../../src';
 
 export default class Example extends Component{
   render() {
     return (
-      <HelloWorld />
+      <Slider style={{ margin: '100px 400px' }}/>
     );
   }
 }
