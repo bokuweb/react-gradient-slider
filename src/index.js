@@ -40,7 +40,7 @@ export default class GradationSlider extends Component {
 
   onMouseMove(e) {
     if (!this.state.isDraged) return;
-    const top = this.clamp(e.clientY - this.state.org.y, 0, 400);
+    const top = this.clamp(e.clientY - this.state.org.y, 0, 290); //FIXME: use props
     this.setState({ top });
   }
 
