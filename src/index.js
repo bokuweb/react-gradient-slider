@@ -32,17 +32,19 @@ export default class GradationSlider extends Component {
     this.setState({
       isDraged: true,
       org: {
-        x: this.refs.handler.getBoundingClientRect().left,
-        y: this.refs.handler.getBoundingClientRect().top,
+        x: this.refs.bar.getBoundingClientRect().left,
+        y: this.refs.bar.getBoundingClientRect().top,
       }
     });
   }
 
   onMouseMove(e) {
     if (!this.state.isDraged) return;
+    console.log(`${this.clamp(e.clientY - this.state.org.y, 0, 290)} =  ${e.clientY} - ${this.state.org.y}`);
     const top = this.clamp(e.clientY - this.state.org.y, 0, 290); //FIXME: use props
     this.setState({ top });
   }
+
 
   onMouseUp() {
     console.log('mouseUp');
@@ -98,7 +100,7 @@ export default class GradationSlider extends Component {
              cursor: pointer;
            }
          `} >
-        <div />
+        <div ref="bar"/>
         <div />
         <a
            ref="handler"
