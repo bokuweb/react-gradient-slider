@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import InlineCss from "react-inline-css";
 
+
+
 export default class GradationSlider extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +40,8 @@ export default class GradationSlider extends Component {
 
   onMouseMove(e) {
     if (!this.state.isDraged) return;
-    this.setState({ top: e.clientY - this.state.org.y });
+    const top = this.clamp(e.clientY - this.state.org.y, 0, 290); //FIXME: use props
+    this.setState({ top });
   }
 
   onMouseUp() {
@@ -52,6 +55,10 @@ export default class GradationSlider extends Component {
 
   onTouchEnd() {
 
+  }
+
+  clamp(n, min = n, max = n) {
+    return Math.max(Math.min(n, max), min);
   }
 
   render() {
