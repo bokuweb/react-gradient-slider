@@ -3,14 +3,19 @@ import InlineCss from "react-inline-css";
 
 export default class GradationSlider extends Component {
   static propTypes = {
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired,
-    styles: PropTypes.object,
+    slider: PropTypes.object.isRequired,
+    style: PropTypes.object,
+    onSlideStart: PropTypes.func,
+    onSlide: PropTypes.func,
+    onSlideStop: PropTypes.func,
   };
 
   static defaultProps = {
     className: '',
-    styles: {},
+    style: {},
+    onSlideStart: () => null,
+    onSlide: () => null,
+    onSlideStop: () => null,
   };
 
   constructor(props) {
@@ -21,7 +26,7 @@ export default class GradationSlider extends Component {
         x: 0, // reserve
         y: 0, 
       },
-      top: 0, // TODO: Add marginTop props value
+      top: 0,
       left: 0, // reserve
     };
   }
@@ -56,9 +61,10 @@ export default class GradationSlider extends Component {
 
   onMouseMove(e) {
     if (!this.state.isDraged) return;
-    const { height } = this.props;
-    const top = this.clamp(e.clientY - this.state.origin.y, 0, height); //FIXME: use props
+    const { slider, onSlide } = this.props;
+    const top = this.clamp(e.clientY - this.state.origin.y, 0, slider.height);
     this.setState({ top });
+    onSlide(~~((top / slider.height) * 100));
   }
 
 
@@ -83,15 +89,15 @@ export default class GradationSlider extends Component {
   }
 
   render() {
-    const { style, className, width, height } = this.props;
+    const { style, className, slider } = this.props;
     return (
       <InlineCss
          className={ className }
          style={ Object.assign({}, style, { position: 'relative', height: 'auto', width: 'auto' }) }
          stylesheet={`
            & > div {
-             width: 8px;
-             height: 300px;
+             width: ${slider.width}px;
+             height: ${slider.height}px;
              background: red;
              border-radius: 10px;
              position: absolute;
@@ -105,6 +111,7 @@ export default class GradationSlider extends Component {
              background: -ms-linear-gradient(top,  #f00 0%, #ff0 25%, #0f0 50%, #0ff 75%, #00f 100%);
              background: -o-linear-gradient(top,  #f00 0%, #ff0 25%, #0f0 50%, #0ff 75%, #00f 100%);
              background: linear-gradient(top,  #f00 0%, #ff0 25%, #0f0 50%, #0ff 75%, #00f 100%);
+             border-radius: 10px;
            }
 
            & > a {
@@ -121,7 +128,7 @@ export default class GradationSlider extends Component {
          `} >
         <div
            ref="bar"
-           style={{ height: `${ height- this.state.top }px`, top: `${ this.state.top }px` }}
+           style={{ height: `${ slider.height- this.state.top }px`, top: `${ this.state.top }px` }}
         />
         <div style={{ height: `${ this.state.top + 10 }px` }} />
         <a
