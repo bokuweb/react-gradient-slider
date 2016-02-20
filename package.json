@@ -1,7 +1,7 @@
 {
-  "name": "react-develop-boilerplate",
-  "version": "0.1.0",
-  "description": "",
+  "name": "@bokuweb/react-gradiant-slider",
+  "version": "0.1.2",
+  "description": "gradation slider component",
   "main": "lib/index.js",
   "scripts": {
     "watch": "npm run watch:lib & npm run watch:example",
@@ -71,5 +71,9 @@
   ],
   "dependencies": {
     "react-inline-css": "^2.1.0"
+  },
+  "directories": {
+    "example": "example",
+    "test": "test"
   }
 }
