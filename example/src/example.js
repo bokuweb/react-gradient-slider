@@ -4,7 +4,7 @@ import Slider from '../../src';
 export default class Example extends Component{
   render() {
     return (
-      <Slider style={{ margin: '100px 400px' }}/>
+      <Slider style={{ margin: '100px 400px' }} height={290} width={10} />
     );
   }
 }

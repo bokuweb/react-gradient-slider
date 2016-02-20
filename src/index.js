@@ -1,7 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import InlineCss from "react-inline-css";
 
 export default class GradationSlider extends Component {
+  static propTypes = {
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    styles: PropTypes.object,
+  };
+
+  static defaultProps = {
+    className: '',
+    styles: {},
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -45,7 +56,8 @@ export default class GradationSlider extends Component {
 
   onMouseMove(e) {
     if (!this.state.isDraged) return;
-    const top = this.clamp(e.clientY - this.state.origin.y, 0, 290); //FIXME: use props
+    const { height } = this.props;
+    const top = this.clamp(e.clientY - this.state.origin.y, 0, height); //FIXME: use props
     this.setState({ top });
   }
 
@@ -71,7 +83,7 @@ export default class GradationSlider extends Component {
   }
 
   render() {
-    const { style, className } = this.props;
+    const { style, className, width, height } = this.props;
     return (
       <InlineCss
          className={ className }
@@ -109,7 +121,7 @@ export default class GradationSlider extends Component {
          `} >
         <div
            ref="bar"
-           style={{ height: `${ 290- this.state.top }px`, top: `${ this.state.top }px` }}
+           style={{ height: `${ height- this.state.top }px`, top: `${ this.state.top }px` }}
         />
         <div style={{ height: `${ this.state.top + 10 }px` }} />
         <a
