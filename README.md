@@ -5,6 +5,9 @@ gradation slider component
 [![Build Status](https://travis-ci.org/bokuweb/react-gradation-slider.svg?branch=master)](https://travis-ci.org/bokuweb/react-gradation-slider)
 [![Code Climate](https://codeclimate.com/github/bokuweb/react-gradation-slider/badges/gpa.svg)](https://codeclimate.com/github/bokuweb/react-gradation-slider)
 
+## Screenshot
+
+![screenshot](https://raw.githubusercontent.com/bokuweb/react-gradation-slider/master/screenshot.gif)
 
 ## License
 
