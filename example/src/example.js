@@ -6,10 +6,11 @@ export default class Example extends Component{
     return (
       <Slider
          style={{ margin: '100px 400px' }}
-         slider={{ height: 290,  width: 20, borderRadius: 10 }}
-         onSlideStart={ value => console.log(`slide start ${value}`) }
+         slider={{ height: 290,  width: 10, borderRadius: 10 }}
+         handler={{ height: 10,  width: 20, style: {backgroundColor: '#ccc'} }}
+         onSlideStart={ () => console.log(`slide start`) }
          onSlide={ value => console.log(value)}
-         onSlideStart={ value => console.log(`slide end ${value}`)}
+         onSlideStop={ value => console.log(`slide end ${value}`)}
        />
     );
   }
