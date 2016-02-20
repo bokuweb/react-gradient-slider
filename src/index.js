@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import InlineCss from "react-inline-css";
 
-
-
 export default class GradationSlider extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isDraged: false,
-      org: {
+      origin: {
         x: 0, // reserve
         y: 0, 
       },
       top: 0, // TODO: Add marginTop props value
+      left: 0, // reserve
     };
   }
 
@@ -31,7 +30,7 @@ export default class GradationSlider extends Component {
   onMouseDown(e) {
     this.setState({
       isDraged: true,
-      org: {
+      origin: {
         x: this.refs.bar.getBoundingClientRect().left,
         y: this.refs.bar.getBoundingClientRect().top,
       }
@@ -40,14 +39,13 @@ export default class GradationSlider extends Component {
 
   onMouseMove(e) {
     if (!this.state.isDraged) return;
-    console.log(`${this.clamp(e.clientY - this.state.org.y, 0, 290)} =  ${e.clientY} - ${this.state.org.y}`);
-    const top = this.clamp(e.clientY - this.state.org.y, 0, 290); //FIXME: use props
+    console.dir(e)
+    const top = this.clamp(e.clientY - this.state.origin.y, 0, 290); //FIXME: use props
     this.setState({ top });
   }
 
 
   onMouseUp() {
-    console.log('mouseUp');
     this.setState({ isDraged: false });
   }
 
@@ -80,7 +78,7 @@ export default class GradationSlider extends Component {
              left: 0;
            }
 
-           & > div:nth-child(2) {
+           & > div:nth-child(1) {
              background: -webkit-linear-gradient(top,  #f00 0%, #ff0 25%, #0f0 50%, #0ff 75%, #00f 100%);
              background: -moz-linear-gradient(top,  #f00 0%, #ff0 25%, #0f0 50%, #0ff 75%, #00f 100%);
              background: -ms-linear-gradient(top,  #f00 0%, #ff0 25%, #0f0 50%, #0ff 75%, #00f 100%);
@@ -100,8 +98,11 @@ export default class GradationSlider extends Component {
              cursor: pointer;
            }
          `} >
-        <div ref="bar"/>
-        <div />
+        <div
+           ref="bar"
+           style={{ height: `${ 290- this.state.top }px`, top: `${ this.state.top }px` }}
+        />
+        <div style={{ height: `${ this.state.top + 10 }px` }} />
         <a
            ref="handler"
            onMouseDown={ ::this.onMouseDown }
