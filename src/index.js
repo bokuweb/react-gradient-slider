@@ -17,14 +17,20 @@ export default class GradationSlider extends Component {
 
   componentDidMount() {
     this.onMouseMove = ::this.onMouseMove;
+    this.onTouchMove = ::this.onTouchMove;
     this.onMouseUp = ::this.onMouseUp;
+    this.onTouchEnd = ::this.onTouchEnd;
     window.addEventListener('mousemove', this.onMouseMove);
+    window.addEventListener('touchmove', this.onTouchMove);
     window.addEventListener('mouseup', this.onMouseUp);
+    window.addEventListener('touchend', this.onTouchEnd);
   }
 
   componentWillUnmount() {
     window.removeEventListener('mousemove', this.onMouseMove);
+    window.removeEventListener('touchmove', this.onTouchMove);
     window.removeEventListener('mouseup', this.onMouseUp);
+    window.removeEventListener('touchend', this.onTouchEnd);
   }
 
   onMouseDown(e) {
@@ -39,7 +45,6 @@ export default class GradationSlider extends Component {
 
   onMouseMove(e) {
     if (!this.state.isDraged) return;
-    console.dir(e)
     const top = this.clamp(e.clientY - this.state.origin.y, 0, 290); //FIXME: use props
     this.setState({ top });
   }
@@ -49,12 +54,16 @@ export default class GradationSlider extends Component {
     this.setState({ isDraged: false });
   }
 
-  onTouchStart() {
+  onTouchStart(e) {
+    this.onMouseDown(e.touches[0]);
+  }
 
+  onTouchMove(e) {
+    this.onMouseMove(e.touches[0]);
   }
 
   onTouchEnd() {
-
+    this.setState({ isDraged: false });
   }
 
   clamp(n, min = n, max = n) {
