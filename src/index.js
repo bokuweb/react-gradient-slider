@@ -13,6 +13,11 @@ export default class GradationSlider extends Component {
   static defaultProps = {
     className: '',
     style: {},
+    slider: {
+      width: 10,
+      height: 100,
+      borderRadius: 10,
+    },
     onSlideStart: () => null,
     onSlide: () => null,
     onSlideStop: () => null,
@@ -99,7 +104,7 @@ export default class GradationSlider extends Component {
              width: ${slider.width}px;
              height: ${slider.height}px;
              background: red;
-             border-radius: 10px;
+             border-radius: 10px 10px 0 0;
              position: absolute;
              top: 0;
              left: 0;
@@ -111,30 +116,27 @@ export default class GradationSlider extends Component {
              background: -ms-linear-gradient(top,  #f00 0%, #ff0 25%, #0f0 50%, #0ff 75%, #00f 100%);
              background: -o-linear-gradient(top,  #f00 0%, #ff0 25%, #0f0 50%, #0ff 75%, #00f 100%);
              background: linear-gradient(top,  #f00 0%, #ff0 25%, #0f0 50%, #0ff 75%, #00f 100%);
-             border-radius: 10px;
+             border-radius: 0 0 10px 10px;
            }
 
            & > a {
              display: block;
-             width: 16px;
-             height: 16px;
+             width: ${slider.width}px;
+             height: ${slider.width}px;
              background: #333;
              border-radius: 50%;
              position: absolute;
-             margin: 0 0 0 -4px;
+             margin: 0 0 0 0;
              left: 0;
              cursor: pointer;
            }
          `} >
-        <div
-           ref="bar"
-           style={{ height: `${ slider.height- this.state.top }px`, top: `${ this.state.top }px` }}
-        />
-        <div style={{ height: `${ this.state.top + 10 }px` }} />
+        <div style={{ height: `${ slider.height- this.state.top }px`, top: `${ this.state.top }px` }} />
+        <div ref="bar" style={{ height: `${ this.state.top }px` }} />
         <a
            ref="handler"
            onMouseDown={ ::this.onMouseDown }
-           style={{ top: `${ this.state.top }px` }}
+           style={{ top: `${ this.state.top - slider.width / 2}px` }}
         />
       </InlineCss>
     );

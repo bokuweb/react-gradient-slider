@@ -7,7 +7,9 @@ export default class Example extends Component{
       <Slider
          style={{ margin: '100px 400px' }}
          slider={{ height: 290,  width: 20, borderRadius: 10 }}
-         onSlide={(value) => console.log(value)}
+         onSlideStart={ value => console.log(`slide start ${value}`) }
+         onSlide={ value => console.log(value)}
+         onSlideStart={ value => console.log(`slide end ${value}`)}
        />
     );
   }
